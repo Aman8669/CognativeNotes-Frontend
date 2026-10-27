@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = import.meta.env.PROD
+    ? 'https://cognativenotes.onrender.com/api'
+    : 'http://localhost:8080/api';
 
 const api = axios.create({
     baseURL: API_BASE_URL,
@@ -9,7 +11,6 @@ const api = axios.create({
     },
 });
 
-// Request Interceptor: Har API request ke sath JWT token attach karne ke liye
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');

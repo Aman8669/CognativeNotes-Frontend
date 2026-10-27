@@ -16,9 +16,14 @@ export default function Login({ onLoginSuccess, switchToRegister }) {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('username', username);
             onLoginSuccess();
-        } catch (err) {
-            setError(err.response?.data?.message || 'Invalid username or password!');
-        }
+        }  catch (err) {
+    setError(
+        err.response?.data?.message ||
+        (err.response
+            ? 'Login failed. Please check your credentials.'
+            : 'Cannot connect to server. Please try again.')
+    );
+}
     };
 
     return (
